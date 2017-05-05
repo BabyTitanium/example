@@ -1,0 +1,15 @@
+.below{
+    margin-left: 80px;
+    margin-right:80px;
+}
+.left{
+    width: 100px;
+    height: 500px;
+    /*border: 1px solid black;*/
+    float: left;
+}
+.right{
+    float: left;
+    width:400px;
+    border: 1px solid red;
+}
