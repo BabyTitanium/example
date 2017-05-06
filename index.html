@@ -10,8 +10,38 @@
     <link rel="stylesheet" href="css/my.css">
     <script>
         $(document).ready(function () {
-            $('#kind > li').on('click',function () {
+            console.log("111");
+            $.ajax({
 
+                url:'http://toutiao-ali.juheapi.com/toutiao/index',     //请求的url
+                type:'get',                                             //请求的方式
+                data:{'type':'top'},
+                headers:{
+                    'Authorization': 'APPCODE 557d3e7aaf744971bca3ed75c7c0421f' //设置请求头部,即认证信息
+                },
+                success:function (data) {   //请求成功执行的函数,data是获取的数据,在这个函数里处理数据
+
+                    console.log(data);  //在控制台输出数据,了解数据结构
+
+                    var news = data.result.data;    //发现新闻是存放在data.result.data里, 暂存到news变量里
+
+                    var html=''; //创建构建html代码的变量
+
+                    //遍历news数组,生成html代码
+                    news.forEach(function (item) {
+                        html+="<a class='list-group-item' href='"+item.url+"'>"+item.title+"</a><br />";
+                    });
+
+                    $('.list-group').html(html);//插入到div中
+                },
+                error:function () { //请求失败的时候执行的函数
+                    console.log('error');
+                }
+            });
+
+            $('#kind > li').on('click',function () {
+                $('#kind > li').removeClass('active');
+                this.className="active";
                 var type=$(this).data('type');
                 console.log(type);
                 $.ajax({
@@ -64,7 +94,7 @@
 <div class="below">
     <div class="left">
     <ul class="nav nav-pills nav-stacked" id="kind" style="width: 100px; text-align: center;float: left">
-      <li role="presentation" data-type="top" class="active"><a href="#">推荐</a></li>
+      <li role="presentation" data-type="top"><a href="#">推荐</a></li>
       <li role="presentation" data-type="yule"><a href="#">娱乐</a></li>
       <li role="presentation" data-type="keji"><a href="#">科技</a></li>
       <li role="presentation" data-type="shehui"><a href="#">社会</a></li>
@@ -73,7 +103,7 @@
       <li role="presentation" data-type="tiyu"><a href="#">体育</a></li>
     </ul>
     </div>
-    <div style="background-color: red;width: 1000px;float: left;">
+    <div style="width: 1000px;float: left;">
         <div class="list-group"  style="width: 900px; float: left; padding-left: 50px;">
         </div>
     </div>
