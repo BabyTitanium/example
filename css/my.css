@@ -7,11 +7,13 @@
     height: 500px;
     /*border: 1px solid black;*/
     float: left;
+    position: fixed;
 }
 .right{
-    float: left;
+    position:fixed;
+    left: 100px;
     width:400px;
-    border: 1px solid red;
+
 }
 .to{
 
